@@ -10,7 +10,22 @@
 .inputdata{
   display: flex;
   flex-direction: column;
+  width: 50%;
   
+  
+}
+.row{
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  
+}
+.col{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 }
 .inputdata label{
   font-size: 1.2em;
@@ -22,6 +37,7 @@
   font-size: 1em;
   padding: 1px 10px;
   border-radius: 5px;
+  width: 90%;
   
 }
 /* Table Styling */
@@ -47,12 +63,12 @@ th {
 
 /* Table Data Cells */
 td {
-  padding: 12px;
+  padding: 5px 20px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #c4c4c4;
   font-size: 1em;
   font-weight: bold;
-  background-color: #ababab;
+  background-color: #9c9c9c;
   text-align: center;
   min-width: 80px;
 }
@@ -71,3 +87,20 @@ td p {
 }
 
 
+.btn{
+  width: max-content;
+  font-size: 1.3em;
+}
+.logo a{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #262626;
+  text-decoration: none;
+  gap: 2px;
+  font-weight: 600;
+}
+.logo a img{
+  width: 40px;
+}

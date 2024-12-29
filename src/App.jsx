@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import img from  "./assets/github.png"
 
 function App() {
   // State variables for each input
@@ -9,6 +10,7 @@ function App() {
   const [numStep, setNumStep] = useState("0");
   const [discountRatio, setDiscountRatio] = useState("0");
   const [finalprice, setfinalprice] = useState("");
+  const [shipping, setshipping] = useState("0");
 
   const [steparr, setsteparr] = useState([]);
 
@@ -24,10 +26,11 @@ function App() {
     const taxx = parseFloat(tax);
     const steps = parseFloat(numStep);
     const disratio = parseFloat(discountRatio);
+    const shippingcost = parseFloat(shipping);
 
     const calmargin = (cost * marg) / 100;
     const caltax = (cost * taxx) / 100;
-    const finalpriec = cost + calmargin + caltax;
+    const finalpriec = cost + calmargin + caltax + shippingcost;
     setfinalprice(finalpriec);
 
     if (steps > 0) {
@@ -36,7 +39,7 @@ function App() {
         marg -= disratio;
         const calmargin = (cost * marg) / 100;
         const caltax = (cost * taxx) / 100;
-        const finalpriec = cost + calmargin + caltax;
+        const finalpriec = cost + calmargin + caltax + shippingcost;
         newarr.push(finalpriec);
       }
       setsteparr(newarr);
@@ -48,51 +51,75 @@ function App() {
       <div className="body">
         <h1>Price Calculator</h1>
         <div className="inputdata">
-          <label htmlFor="Costprice">Cost Price</label>
-          <input
-            type="number"
-            id="Costprice"
-            className="text"
-            value={costPrice}
-            onChange={(e) => handleInputChange(e, setCostPrice)}
-          />
+          <div className="row">
+            <div className="col">
+              <label htmlFor="Costprice">Cost Price</label>
+              <input
+                type="number"
+                id="Costprice"
+                className="text"
+                value={costPrice}
+                onChange={(e) => handleInputChange(e, setCostPrice)}
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="Margin">Margin</label>
+              <input
+                type="number"
+                id="Margin"
+                value={margin}
+                onChange={(e) => handleInputChange(e, setMargin)}
+              />
+            </div>
+          </div>
 
-          <label htmlFor="Margin">Margin</label>
-          <input
-            type="number"
-            id="Margin"
-            value={margin}
-            onChange={(e) => handleInputChange(e, setMargin)}
-          />
+          <div className="row">
+            <div className="col">
+              <label htmlFor="tax">VAT Tax</label>
+              <input
+                type="number"
+                id="tax"
+                value={tax}
+                onChange={(e) => handleInputChange(e, setTax)}
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="ship">Shipping</label>
+              <input
+                type="number"
+                id="ship"
+                value={shipping}
+                onChange={(e) => handleInputChange(e, setshipping)}
+              />
+            </div>
+          </div>
 
-          <label htmlFor="tax">VAT Tax</label>
-          <input
-            type="number"
-            id="tax"
-            value={tax}
-            onChange={(e) => handleInputChange(e, setTax)}
-          />
+          <div className="row">
+            <div className="col">
+              <label htmlFor="numstep">Add number of price Tiers</label>
+              <input
+                type="number"
+                id="numstep"
+                placeholder="0"
+                value={numStep}
+                onChange={(e) => handleInputChange(e, setNumStep)}
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="discountratio">
+                Add discount% Ratio for price tiers
+              </label>
+              <input
+                type="number"
+                id="discountratio"
+                value={discountRatio}
+                placeholder="0"
+                onChange={(e) => handleInputChange(e, setDiscountRatio)}
+              />
+            </div>
+          </div>
 
-          <label htmlFor="numstep">Add number of price Tiers</label>
-          <input
-            type="number"
-            id="numstep"
-            placeholder="0"
-            value={numStep}
-            onChange={(e) => handleInputChange(e, setNumStep)}
-          />
-
-          <label htmlFor="discountratio">
-            Add discount% Ratio for price tiers
-          </label>
-          <input
-            type="number"
-            id="discountratio"
-            value={discountRatio}
-            placeholder="0"
-            onChange={(e) => handleInputChange(e, setDiscountRatio)}
-          />
-          <button onClick={calculatefinalprice}>Calculate</button>
+          <button className="btn" onClick={calculatefinalprice}>Calculate</button>
         </div>
 
         <div className="showdata">
@@ -101,6 +128,7 @@ function App() {
               <th>Cost Price</th>
               <th>Margin %</th>
               <th>Tax VAT %</th>
+              <th>Shipping</th>
               {steparr.map((price, index) => (
                 <th key={index}>
                   <p>Tier{index + 1}</p>
@@ -111,6 +139,7 @@ function App() {
               <td>{costPrice}</td>
               <td>{margin}%</td>
               <td>{tax}%</td>
+              <td>{shipping}</td>
               {steparr.map((price, index) => (
                 <td key={index}>
                   <p>{price}</p>
@@ -126,9 +155,16 @@ function App() {
               <strong>Discount Ratio:</strong> {discountRatio}%
             </p>
             <p>
-              <strong>Final Price:</strong> {finalprice}
+              <strong>Actual Price: </strong> {finalprice}
             </p>
           </div>
+        </div>
+
+        <div className="logo">
+          <a href="https://github.com/umerweb" target="_blank">
+          <img src={img} alt="" />
+          <span>Developer</span>
+          </a>
         </div>
       </div>
     </>
